@@ -10,11 +10,13 @@ SetTitleMatchMode, 2
 #include helper.ahk
 #include game_detection.ahk
 #include flask.ahk
+#include autoclick.ahk
 
 Splash("D4 Running", 2000)
 
 gameDetection() ; Perform Game detection
 startAutoFlask() ; Perform Auto Flask
+startAutoClick() ; Perform Auto Clicks
 
 ; ##################################################
 ; This is to Pause and suspend keys

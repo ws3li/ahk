@@ -44,3 +44,6 @@ global box5Y := 1306 ;
 
 global box6X := 1510 ;
 global box6Y := 1306 ;
+
+; perform auto clicks on abilities
+global R_AUTO_CLICK_DS := 1 ; auto click the darkshroud (not in town and if not already have one)
