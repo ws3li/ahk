@@ -1,7 +1,13 @@
 global inGameDetected := 0
-global inTownDetected := 0
+global inTown := 0
 
 gameDetection()
+{
+  gameFocusedCheck()
+  inTownCheck()
+}
+
+gameFocusedCheck()
 {
   global inGameDetected
   found := isGameDetected()
@@ -14,17 +20,45 @@ gameDetection()
   SetTimer, gameDetection, 300
 }
 
-inTownDetection()
+inTownCheck()
 {
-  global inTownDetected
+  global inTown
+  global F_IN_TOWN
+
+  if (!F_IN_TOWN)
+  {
+    inTown := 0
+    return
+  }
+
   found := isInTown()
 
   if (found){
-    inTownDetected = 1
-  } else {
-    inTownDetected = 0
+    inTown = 1
+  }else {
+    inTown = 0
   }
-  SetTimer, inTownDetection, 1000
+
+  SetTimer, inTownCheck, 2000
+}
+
+inventoryOpenedCheck()
+{
+  global inventoryOpened1
+  global F_INV_CHECK
+
+  if (F_INV_CHECK)
+  {
+    found := isInvOpened()
+
+    if (found){
+      inventoryOpened = 1
+    } else {
+      inventoryOpened = 0
+    }
+
+    SetTimer, inventoryOpenedCheck, 1000
+  }
 }
 
 isGameDetected()
@@ -57,52 +91,48 @@ isGameDetected()
   return detected
 }
 
-isInTown()
+isInvOpened()
 {
-  global offAbilitycolor := 0x323131 ; color of abilities turned off
-  global box1X := 1090 ;
-  global box1Y := 1300 ;
-
-  global box2X := 1175 ;
-  global box2Y := 1300 ;
-
-  global box3X := 1260 ;
-  global box3Y := 1300 ;
-
-  global box4X := 1345 ;
-  global box4Y := 1300 ;
-
-  global box5X := 1430 ;
-  global box5Y := 1300 ;
-
-  global box6X := 1515 ;
-  global box6Y := 1300 ;
+  global invXColor
+  global invXColorX
+  global invXColorY
+  global invAbilityBtnColor
+  global invAbilityBtnColorX
+  global invAbilityBtnColorY
 
   squareSpacing := 10
 
-  box1 := colorExists(box1X, box1Y, box1X + squareSpacing, box1Y + squareSpacing, offAbilitycolor, 10, "box1")
-  box2 := colorExists(box2X, box2Y, box2X + squareSpacing, box2Y + squareSpacing, offAbilitycolor, 10, "box2")
-  box3 := colorExists(box3X, box3Y, box3X + squareSpacing, box3Y + squareSpacing, offAbilitycolor, 10, "box3")
-  box4 := colorExists(box4X, box4Y, box4X + squareSpacing, box4Y + squareSpacing, offAbilitycolor, 10, "box4")
-  box5 := colorExists(box5X, box5Y, box5X + squareSpacing, box5Y + squareSpacing, offAbilitycolor, 10, "box5")
-  box6 := colorExists(box6X, box6Y, box6X + squareSpacing, box6Y + squareSpacing, offAbilitycolor, 10, "box6")
+  invX := colorExists(invXColorX, invXColorY, invXColorX + squareSpacing, invXColorY + squareSpacing, invXColor, 10, "invX")
+  invAbilityBtn := colorExists(invAbilityBtnColorX, invAbilityBtnColorY, invAbilityBtnColorX + squareSpacing, invAbilityBtnColorY + squareSpacing, invAbilityBtnColor, 10, "invAbilityBtn")
 
-  abilitiesOff := box1 && box2 && box3 && box4 && box5 && box6
+  return invX && invAbilityBtn
+}
 
-  static gm := 0
-  lockedwinnum := 2
-  if (abilitiesOff)
-  {
-    if (!gm){
-      gm = 1
-      message("INTWN", lockedwinnum)
-    }
-  } else {
-    if (gm){
-      gm = 0
-      closeProgress(lockedwinnum)
-    }
-  }
+isInTown()
+{
+  global offAbilitycolor
+  global box1X
+  global box1Y
+  global box2X
+  global box2Y
+  global box3X
+  global box3Y
+  global box4X
+  global box4Y
+  global box5X
+  global box5Y
+  global box6X
+  global box6Y
 
-  return box1 && box2 && box3 && box4 && box5 && box6
+  squareSpacing := 10
+
+  box1 := colorExists(box1X, box1Y, box1X + squareSpacing, box1Y + squareSpacing, offAbilitycolor, 3, "box1")
+  box2 := colorExists(box2X, box2Y, box2X + squareSpacing, box2Y + squareSpacing, offAbilitycolor, 3, "box2")
+  box3 := colorExists(box3X, box3Y, box3X + squareSpacing, box3Y + squareSpacing, offAbilitycolor, 3, "box3")
+  box4 := colorExists(box4X, box4Y, box4X + squareSpacing, box4Y + squareSpacing, offAbilitycolor, 3, "box4")
+  box5 := colorExists(box5X, box5Y, box5X + squareSpacing, box5Y + squareSpacing, offAbilitycolor, 3, "box5")
+  box6 := colorExists(box6X, box6Y, box6X + squareSpacing, box6Y + squareSpacing, offAbilitycolor, 3, "box6")
+
+  townDetected := box1 && box2 && box3 && box4 && box5 && box6
+  return townDetected
 }

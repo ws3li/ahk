@@ -37,7 +37,7 @@ toggleHP(showMsg := 1)
 
 healthLoop()
 {
-   global inTownDetected
+   global inTown
    global inGameDetected
    global hpX
    global hpY
@@ -52,7 +52,7 @@ healthLoop()
 
    if toggle_hp
    {
-      if (!inGameDetected){
+      if (!inGameDetected || inTown){
          SetTimer, healthLoop, -200
          return
       }
@@ -67,7 +67,7 @@ healthLoop()
       if (!hp && nohp)
       {
          Send, 1
-         SetTimer, healthLoop, -1500
+         SetTimer, healthLoop, -2000
       }
       else
       {

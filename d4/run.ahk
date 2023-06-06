@@ -14,7 +14,6 @@ SetTitleMatchMode, 2
 Splash("D4 Running", 2000)
 
 gameDetection() ; Perform Game detection
-inTownDetection() ; Check if player is in town
 startAutoFlask() ; Perform Auto Flask
 
 ; ##################################################
@@ -43,6 +42,21 @@ return
 
    Clipboard := position
 ; take readable color and use on https://www.rapidtables.com/web/color/RGB_Color.html
+return
+
+; ######################################
+; Exit dungeon and reset
+; ######################################
+!d::
+   Send, {MButton}
+   Click, 1166, 504
+   Sleep 15000
+   Send {ESC}
+   Click, 544, 990
+   Sleep 15000
+   send {enter}
+   Sleep 21000
+   Click, 1037, 444
 return
 
 ; Get All recorded points
