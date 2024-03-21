@@ -1,6 +1,6 @@
 startAutoClick()
 {
-  darkshroudInit()
+  ; darkshroudInit()
 }
 
 darkshroudInit()
@@ -25,13 +25,13 @@ darkshroudInit()
 autoClickDarkShroud()
 {
   ; Check if skill is available
-  dsavailableColor := 0x9ACCDF
+  dsavailableColor := 0x75BED7
   dsavailableX := 1303
   dsavailableY := 1312
   dsavailable := colorExists(dsavailableX, dsavailableY, dsavailableX + squareSpacing, dsavailableY + squareSpacing, dsavailableColor, 3, "dsavailable")
 
   ; check if skill is on CD
-  dsavailablecd := colorExists(dsavailableX, dsavailableY, dsavailableX + squareSpacing, dsavailableY + squareSpacing, 0x2C3446, 0, "dsavailablecd")
+  dsavailablecd := colorExists(dsavailableX, dsavailableY, dsavailableX + squareSpacing, dsavailableY + squareSpacing, 0x2F3A48, 0, "dsavailablecd")
 
   if (dsavailable && !dsavailablecd)
   {

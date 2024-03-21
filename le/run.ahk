@@ -12,9 +12,9 @@ SetTitleMatchMode, 2
 #include flask.ahk
 #include autoclick.ahk
 
-Splash("D4 Running", 2000)
+Splash("LE Running", 2000)
 
-gameDetection() ; Perform Game detection
+characterDetection() ; Perform Character detection
 startAutoFlask() ; Perform Auto Flask
 ; startAutoClick() ; Perform Auto Clicks
 
@@ -79,39 +79,6 @@ return
 ;    Send, 4
 ;    Send, 3
 ; return
-
-;$q::
-;   	Send, q
-;   	Send, w
-;Send, 6
-;Send, 6
-;Send, 6
-;Send, {RButton}
-;return
-
-; $RButton::
-;    Send, {RButton}
-;    Send, q
-;    Send, w
-;    Send, e
-;    Send, r
-; return
-
-#include afk.ahk
-afk := new AFK()
-^!k::
-   afk.Start()
-return
-
-^!l::
-   afk.Stop()
-return
-
-^o::
-   Send {enter}
-   Send promote
-   Send {enter}
-return
 
 !`::
    Suspend

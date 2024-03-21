@@ -19,6 +19,7 @@ toggleHP(showMsg := 1)
       {
          Splash("Auto HP Enabled")
       }
+
       healthLoop()
    }
    else
@@ -37,8 +38,7 @@ toggleHP(showMsg := 1)
 
 healthLoop()
 {
-   global inventoryOpened
-   global inGameDetected
+   global charDetected
    global hpX
    global hpY
    global hpColor
@@ -50,27 +50,31 @@ healthLoop()
 
    squareSpacing := 10
 
+   if (GetKeyState("LButton", "P"))
+   {
+
+   }
+
    if toggle_hp
    {
-      if (!inGameDetected){
+      if (!charDetected){
          SetTimer, healthLoop, -200
          return
       }
 
       hp := colorExists(hpX, hpY, hpX + squareSpacing, hpY + squareSpacing, hpColor, 20, "hpglobe")
-
-      nohp := 1
-      if (noHpDetection) {
-         nohp := colorExists(noHPX, noHPY, noHPX + squareSpacing, noHPY + squareSpacing, noHPColor, 20, "nohpColor")
-      }
-
       invOp := isInvOpenedCheck()
-      if (!hp && nohp && !invOp)
+
+      if (!hp && !invOp && GetKeyState("LButton", "P"))
       {
-         If WinActive("ahk_exe Diablo IV.exe")
+         If WinActive("ahk_exe Last Epoch.exe")
          {
             Send, 1
-            SetTimer, healthLoop, -2000
+            SetTimer, healthLoop, -1000
+         }
+         else
+         {
+            SetTimer, healthLoop, -200
          }
       }
       else

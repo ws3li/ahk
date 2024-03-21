@@ -1,10 +1,12 @@
 global inGameDetected := 0
 global inTown := 0
+global inventoryOpened := 0
 
 gameDetection()
 {
   gameFocusedCheck()
-  inTownCheck()
+  ; inTownCheck()
+  ; inventoryOpenedCheck()
 }
 
 gameFocusedCheck()
@@ -44,7 +46,7 @@ inTownCheck()
 
 inventoryOpenedCheck()
 {
-  global inventoryOpened1
+  global inventoryOpened
   global F_INV_CHECK
 
   if (F_INV_CHECK)
@@ -57,7 +59,7 @@ inventoryOpenedCheck()
       inventoryOpened = 0
     }
 
-    SetTimer, inventoryOpenedCheck, 1000
+    SetTimer, inventoryOpenedCheck, 100
   }
 }
 
@@ -96,16 +98,16 @@ isInvOpened()
   global invXColor
   global invXColorX
   global invXColorY
-  global invAbilityBtnColor
-  global invAbilityBtnColorX
-  global invAbilityBtnColorY
+  global invGoldColor
+  global invGoldColorX
+  global invGoldColorY
 
   squareSpacing := 10
 
   invX := colorExists(invXColorX, invXColorY, invXColorX + squareSpacing, invXColorY + squareSpacing, invXColor, 10, "invX")
-  invAbilityBtn := colorExists(invAbilityBtnColorX, invAbilityBtnColorY, invAbilityBtnColorX + squareSpacing, invAbilityBtnColorY + squareSpacing, invAbilityBtnColor, 10, "invAbilityBtn")
+  invGold := colorExists(invGoldColorX, invGoldColorY, invGoldColorX + squareSpacing, invGoldColorY + squareSpacing, invGoldColor, 10, "invGold")
 
-  return invX && invAbilityBtn
+  return invX && invGold
 }
 
 isInTown()
@@ -131,8 +133,8 @@ isInTown()
   box3 := colorExists(box3X, box3Y, box3X + squareSpacing, box3Y + squareSpacing, offAbilitycolor, 3, "box3")
   box4 := colorExists(box4X, box4Y, box4X + squareSpacing, box4Y + squareSpacing, offAbilitycolor, 3, "box4")
   box5 := colorExists(box5X, box5Y, box5X + squareSpacing, box5Y + squareSpacing, offAbilitycolor, 3, "box5")
-  box6 := colorExists(box6X, box6Y, box6X + squareSpacing, box6Y + squareSpacing, offAbilitycolor, 3, "box6")
+  ; box6 := colorExists(box6X, box6Y, box6X + squareSpacing, box6Y + squareSpacing, offAbilitycolor, 51, "box6")
 
-  townDetected := box1 && box2 && box3 && box4 && box5 && box6
+  townDetected := box1 && box2 && box3 && box4 && box5
   return townDetected
 }

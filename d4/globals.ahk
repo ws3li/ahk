@@ -20,27 +20,27 @@ global F_INV_CHECK := 1 ; feature on/off flag
 global invXColor := 0x07064E ; x color for inventory
 global invXColorX := 2531 ; x position
 global invXColorY := 103 ; y position
-global invAbilityBtnColor := 0x838D93 ; inv "abilities" button color
-global invAbilityBtnColorX := 2394 ; inv "abilities" button color
-global invAbilityBtnColorY := 59 ; inv "abilities" button color
+global invGoldColor := 0x66A4C6 ; inv "gold" count icon color
+global invGoldColorX := 1682 ; inv "gold" x position
+global invGoldColorY := 1322 ; inv "gold" y position
 
 ; detect ability box color
-global F_IN_TOWN := 1 ; check if in town feature (on / off)
+global F_IN_TOWN := 0 ; check if in town feature (on / off)
 global offAbilitycolor := 0x070807 ; color of abilities turned off
 global box1X := 1090 ;
-global box1Y := 1306 ;
+global box1Y := 1357 ;
 
 global box2X := 1174 ;
-global box2Y := 1306 ;
+global box2Y := 1357 ;
 
 global box3X := 1258 ;
-global box3Y := 1306 ;
+global box3Y := 1357 ;
 
 global box4X := 1342 ;
-global box4Y := 1306 ;
+global box4Y := 1357 ;
 
 global box5X := 1426 ;
-global box5Y := 1306 ;
+global box5Y := 1357 ;
 
 global box6X := 1510 ;
 global box6Y := 1306 ;
