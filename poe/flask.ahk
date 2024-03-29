@@ -6,6 +6,7 @@
 global toggle_hp
 global toggle_mana
 global toggle_qs
+global gameExeName
 
 Class Flask
 {
@@ -79,10 +80,7 @@ Class Flask
    {
       global esAsMana
       this.ToggleHP(0)
-      if (esAsMana == 0)
-      {
-         this.ToggleMana(0)
-      }
+      this.ToggleMana(0)
       this.ToggleQS(0)
    }
 }
@@ -93,32 +91,33 @@ Class Flask
 healthLoop:
    global battlefield
    global instantFlask
+
    if toggle_hp
    {
       if (!battlefield){
-         SetTimer, healthLoop, -200
+         SetTimer, healthLoop, -50
          return
       }
 
+      activatedWaitFlask := instantFlask == 1 ? -200 : -2200
       hp := colorExists(119, 1202, 129, 1212, 0x281E7B, 10, "hpglobe")
-      if (!hp && WinActive("ahk_exe PathOfExile.exe"))
+
+      if (!hp && WinActive(gameExeName))
       {
-         flask1 := colorExists(436, 1399, 446, 1409, 0x091351, 10, "hpflask")
-         if (flask1)
+         if (colorExists(436, 1399, 446, 1409, 0x091351, 10, "hpflask1"))
          {
             Send, 1
+            SetTimer, healthLoop, %activatedWaitFlask%
+            return
          }
-         else
+         else if (colorExists(494, 1399, 504, 1409, 0x091351, 10, "hpflask2"))
          {
             Send, 2
+            SetTimer, healthLoop, %activatedWaitFlask%
+            return
          }
-         activatedWaitFlask := instantFlask == 1 ? -200 : -1500
-         SetTimer, healthLoop, %activatedWaitFlask%
       }
-      else
-      {
-         SetTimer, healthLoop, -200
-      }
+      SetTimer, healthLoop, -50
    }
 Return
 
@@ -134,9 +133,8 @@ manaloop:
          SetTimer, manaloop, -200
          return
       }
-
-      mana := colorExists(2359, 1405, 2369, 1415, 0x402214, 10, "manaflask")
-      if (!mana && WinActive("ahk_exe PathOfExile.exe"))
+      mana := colorExists(2359, 1369, 2369, 1379, 0x6E330E, 10, "managlobe")
+      if (!mana && WinActive(gameExeName))
       {
          Send, 3
          SetTimer, manaloop, -1000
@@ -161,23 +159,26 @@ qsloop:
          return
       }
 
-      isMoving := GetKeyState("LButton", "P")
-      if (isMoving && WinActive("ahk_exe PathOfExile.exe"))
+      if (WinActive(gameExeName))
       {
-         qs := colorExists(614, 1397, 624, 1407, 0x51AE2D, 10, "qsflask")
-         if (qs)
+         KeyWait, LButton, T0.5 ; if left button is held for 1 second T = 1 second
+         if ErrorLevel = 1 ; held for 1 second
          {
-            Send, 4
+            if (colorExists(614, 1397, 624, 1407, 0x51AE2D, 10, "qsflask4"))
+            {
+               Send, 4
+               SetTimer, qsloop, -6200
+               return
+            }
+            else if (colorExists(676, 1397, 686, 1407, 0x51AE2D, 10, "qsflask5"))
+            {
+               Send, 5
+               SetTimer, qsloop, -6200
+               return
+            }
          }
-         else
-         {
-            Send, 5
-         }
-         SetTimer, qsloop, -5000
       }
-      else
-      {
-         SetTimer, qsloop, -500
-      }
+
+      SetTimer, qsloop, -200
    }
 Return

@@ -5,67 +5,64 @@
 
 Class Gem
 {
-  ; common color 
-  static crossBlask := 0x000000
-  static crossOrange := 0x08CBFC
-
-  ; button coordinate start x (bx1) and end x (bx2) of
-  ; square to check color
-  static bx1 := 2473
-  static bx2 := 2483
-
   Run()
   {
+    BlockInput MouseMove
     ; save current mouse position
-    MouseGetPos, xpos, ypos 
+    MouseGetPos, xpos, ypos
 
-    ; we are looking for lvl up gem text colorExists
+    ; we are looking for lvl up gem text colorExists ("up" - p)
     ; we check if found on mini map hidden then shown
-    foundOnMapHidden := colorExists(2436, 273, 2446, 283, 0x165587, 10, "lvluphidden")
-    foundOnMapShown := colorExists(2437, 401, 2447, 411, 0x165587, 10, "lvlupshown")
+    foundOnMapHidden := this.textShownOnMapHidden()
+    foundOnMapShown := this.textShownOnMapShown()
 
-    ; we did not find the lvl up text 
+    ; we did not find the lvl up text
     if (!foundOnMapHidden && !foundOnMapShown)
     {
+      BlockInput MouseMoveOff
       return
     }
 
-    if (foundOnMapHidden)
-    {
-      ; we found on map hidden
-      ; we need toupdate the vertical coordinates
-      this.by1 := 276
-      this.by2 := 286
-    }
-    else
-    {
-      ; we found on map hidden
-      ; we need toupdate the vertical coordinates
-      this.by1 := 407
-      this.by2 := 417
-    }
+    ; level up button (square with the plus sign) - X and Y coordinate
+    levelupButtonX := 2473 ; this does not change
+    levelupButtonY := foundOnMapHidden ? 276 : 407 ; ; this changes depending whether the map is opened or not
 
+    ; move the mouse to the lvl up buttons
+    MouseMove levelupButtonX, levelupButtonY, 0 ; 0 is instant move
 
-    ; check if we found the button
-    ; check color black and orange
+    ; loop to see if we still see the text color so that we can keep levelling up any subsequent gems
     ; if so we loop and click on each gem level up
-    while (this.FoundButton())
+    while (this.foundLevellingText(foundOnMapHidden))
     {
-      SendInput, {Click}
+      Click
+      Sleep 75 ; need to keep this sleep here so that the UI reflects the change after the click
     }
 
     ; return to saved mouse position
-    MouseMove xpos, ypos
+    MouseMove xpos, ypos, 0 ; 0 is instant move
+    BlockInput MouseMoveOff
   }
 
-  FoundButton()
-  { 
-    MouseMove this.bx1, this.by1
-    Sleep, 80
+  textShownOnMapHidden()
+  {
+    foundOnMapHidden := colorExists(2436, 273, 2446, 283, 0x165587, 10, "lvluphiddentext")
+    return foundOnMapHidden
+  }
 
-    foundBlack := colorExists(this.bx1, this.by1, this.bx2, this.by2, this.crossBlask, 10, "buttonblack")
-    foundOrange := colorExists(this.bx1, this.by1, this.bx2, this.by2, this.crossOrange, 10, "buttonorange")
+  textShownOnMapShown()
+  {
+    foundOnMapShown := colorExists(2436, 403, 2446, 413, 0x165587, 10, "lvlupshowntesx")
+    return foundOnMapShown
+  }
 
-    return foundBlack && foundOrange
+  foundLevellingText(foundOnMapHidden)
+  {
+    if (foundOnMapHidden)
+    {
+      val := this.textShownOnMapHidden()
+      return val
+    }
+
+    return this.textShownOnMapShown()
   }
 }

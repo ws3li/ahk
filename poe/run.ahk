@@ -8,6 +8,7 @@
    SetTitleMatchMode, 2
 
    #Include, globals.ahk
+   #include autoclick.ahk
 
    MonitorPoints := Object() ; Object to store all the monitor points
    Splash("Running Build - Minion Leveling", 2000)
@@ -16,6 +17,9 @@
    Profile := 1 ;default profile
    flask := new Flask()
    flask.StartAutoFlask()
+
+   ; Perform Auto Clicks
+   startAutoClick()
 
    ; ##################################################
    ; This is to Suspend and unspend keys
@@ -26,6 +30,7 @@
       if (Suspended < 1){
          SplashTextOn ,150, 30, Splash, Script suspended
          Suspended := 1
+         BlockInput MouseMoveOff
       } else {
          SplashTextOn ,150, 30, Splash, Script running
          Suspended := 0
@@ -49,20 +54,20 @@
    ; ######################################
    ; This is to auto reset map instance
    ; ######################################
-   ^Numpad9::
-      MouseMove, 1392, 374
-      Click
-      Sleep, 400
-      Send {LControl Down}
-      MouseMove, 282, 280
-      Sleep, 100
-      Click
-      Send {LControl Up}
-      Sleep, 400
-      MouseMove, 480, 332
-      Sleep, 100
-      Click
-   return
+   ; ^Numpad9::
+   ;    MouseMove, 1392, 374
+   ;    Click
+   ;    Sleep, 400
+   ;    Send {LControl Down}
+   ;    MouseMove, 282, 280
+   ;    Sleep, 100
+   ;    Click
+   ;    Send {LControl Up}
+   ;    Sleep, 400
+   ;    MouseMove, 480, 332
+   ;    Sleep, 100
+   ;    Click
+   ; return
 
    ; ######################################
    ; TP Back to Hideout
@@ -96,7 +101,9 @@
       Send {enter}
       Send, /exit
       Send {enter}
-      Sleep 1200
+      while(!colorExists(2323, 814, 2333, 824, 0x053084, 10, "relogmacro"))
+      {
+      }
       Send {enter}
    return
 
@@ -231,8 +238,6 @@
    isBattleFieldDetected()
    {
       global rightButtonIconYPoint
-      global esAsMana
-      ; X-l= 2181, Y-t= 1323, X-r= 2191, Y-b= 1333, hexColor= 0x3C6EB9, readableColor= b96e3c
 
       Xpoint := 2181
       horizontalSpacing := 10
@@ -306,20 +311,20 @@
       }
    }
 
-   ^LButton::
-      SendInput, ^{Click}
-      SetTimer, AutoClick, -200
-   return
+   ; ^LButton::
+   ;    SendInput, ^{Click}
+   ;    SetTimer, AutoClick, -200
+   ; return
 
-   ^+LButton::
-      SendInput, ^+{Click}
-      SetTimer, AutoClick, -200
-   return
+   ; ^+LButton::
+   ;    SendInput, ^+{Click}
+   ;    SetTimer, AutoClick, -200
+   ; return
 
-   +LButton::
-      SendInput, +{Click}
-      SetTimer, AutoClick, -200
-   return
+   ; +LButton::
+   ;    SendInput, +{Click}
+   ;    SetTimer, AutoClick, -200
+   ; return
 
    ; ######################################
    ; Auto gem level
@@ -327,6 +332,37 @@
    gem := new Gem()
    !s::
       gem.Run()
+   return
+
+   ; ######################################
+   ; Mouse Click 5
+   ; ######################################
+   XButton2::
+      Send, i
+   return
+
+   ; ######################################
+   ; Leap Blink
+   ; ######################################
+   global leapblink
+   !space::
+      leapblink := !leapblink
+
+      state := leapblink ? "enabled" : "disabled"
+      Splash("leap blink: " . state)
+   return
+
+   space::
+      if (leapblink && battlefield)
+      {
+         Send, t
+         Sleep, 600
+         SendEvent, {Space}
+      }
+      else
+      {
+         SendEvent, {Space}
+      }
    return
 
    ; ######################################
@@ -351,15 +387,15 @@
    ; ######################################
    ; Gem Swap
    ; ######################################
-   !a::
-      Send, i
-      Send, x
-      Click, 2385 370 Right
-      Click, 2147 470
-      Click, 2385 370
-      Send, x
-      Send, i
-   return
+   ; !a::
+   ;    Send, i
+   ;    Send, x
+   ;    Click, 2385 370 Right
+   ;    Click, 2147 470
+   ;    Click, 2385 370
+   ;    Send, x
+   ;    Send, i
+   ; return
 
    ; ######################################
    ; Setup Profiles
