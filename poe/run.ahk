@@ -11,7 +11,7 @@
    #include autoclick.ahk
 
    MonitorPoints := Object() ; Object to store all the monitor points
-   Splash("Running Build - Minion Leveling", 2000)
+   Splash("Running POE AHK", 2000)
    inBattleField()
 
    Profile := 1 ;default profile
@@ -113,13 +113,13 @@
 
    ^$1::
       Send ^{enter}
-      Send, In delve. Can you wait a few seconds?
+      Send, finishing a blight map. Can you wait for a minutes?
       Send {enter}
    return
 
    ^$2::
       Send ^{enter}
-      Send, Sounds good. I will get back to you right when I am ready
+      Send, Sounds good. I will get back to you as soon as I am done.
       Send {enter}
    return
 
@@ -190,9 +190,9 @@
    return
 
    ; Get All recorded points
-   ^!c::
-      DrawAllPoints()
-   return
+   ; ^!c::
+   ; DrawAllPoints()
+   ; return
 
    ; ######################################
    ; FLASK helper
@@ -281,7 +281,7 @@
    return
 
    ; ######################################
-   ; Auto click
+   ; Auto click for quick unload
    ; ######################################
    AutoClick()
    {
@@ -311,20 +311,20 @@
       }
    }
 
-   ; ^LButton::
-   ;    SendInput, ^{Click}
-   ;    SetTimer, AutoClick, -200
-   ; return
+   ^LButton::
+      SendInput, ^{Click}
+      SetTimer, AutoClick, -200
+   return
 
-   ; ^+LButton::
-   ;    SendInput, ^+{Click}
-   ;    SetTimer, AutoClick, -200
-   ; return
+   ^+LButton::
+      SendInput, ^+{Click}
+      SetTimer, AutoClick, -200
+   return
 
-   ; +LButton::
-   ;    SendInput, +{Click}
-   ;    SetTimer, AutoClick, -200
-   ; return
+   +LButton::
+      SendInput, +{Click}
+      SetTimer, AutoClick, -200
+   return
 
    ; ######################################
    ; Auto gem level

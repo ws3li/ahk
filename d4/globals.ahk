@@ -5,15 +5,15 @@ global detectionPointColor := 0x1E3741 ; hexColor : hex color to match
 
 ; detect low HP to toggle auto flask
 global potionKeybind := 1 ; keyboard set in game for potion
-global hpX := 860 ; X-l : x coordinate (left)
-global hpY := 1300 ; Y-t : y coordinate (top)
-global hpColor := 0x070432 ; hexColor : hex color to match
+global hpX := 844 ; X-l : x coordinate (left)
+global hpY := 1278 ; Y-t : y coordinate (top)
+global hpColor := 0x4038CD ; hexColor : hex color to match
 
 ; addtional detection on top of the above low hp check (more precise)
 global noHpDetection := 1 ; turn on or off (1 or 0)
-global noHPX := 860 ; X-l : x coordinate (left)
-global noHPY := 1285 ; Y-t : y coordinate (top)
-global noHPColor := 0x141112 ; hexColor : hex color to match
+global noHPX := 800 ; X-l : x coordinate (left)
+global noHPY := 1270 ; Y-t : y coordinate (top)
+global noHPColor := 0x110F10 ; hexColor : hex color to match
 
 ; track if inventory is opened
 global F_INV_CHECK := 1 ; feature on/off flag

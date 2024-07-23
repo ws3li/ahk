@@ -78,7 +78,6 @@ Class Flask
 
    StartAutoFlask()
    {
-      global esAsMana
       this.ToggleHP(0)
       this.ToggleMana(0)
       this.ToggleQS(0)
@@ -104,13 +103,13 @@ healthLoop:
 
       if (!hp && WinActive(gameExeName))
       {
-         if (colorExists(436, 1399, 446, 1409, 0x091351, 10, "hpflask1"))
+         if (!colorExists(432, 1399, 442, 1409, 0x111212, 10, "hpflaskemptycolor1")) ; is it empty if not then run code
          {
             Send, 1
             SetTimer, healthLoop, %activatedWaitFlask%
             return
          }
-         else if (colorExists(494, 1399, 504, 1409, 0x091351, 10, "hpflask2"))
+         else if (!colorExists(494, 1399, 504, 1409, 0x111212, 10, "hpflaskemptycolor2")) ; is it empty if not then run code
          {
             Send, 2
             SetTimer, healthLoop, %activatedWaitFlask%
@@ -130,19 +129,19 @@ manaloop:
    {
       if (!battlefield)
       {
-         SetTimer, manaloop, -200
+         SetTimer, manaloop, -50
          return
       }
+
       mana := colorExists(2359, 1369, 2369, 1379, 0x6E330E, 10, "managlobe")
       if (!mana && WinActive(gameExeName))
       {
          Send, 3
-         SetTimer, manaloop, -1000
+         SetTimer, manaloop, -1500
+         return
       }
-      else
-      {
-         SetTimer, manaloop, -300
-      }
+
+      SetTimer, manaloop, -50
    }
 Return
 

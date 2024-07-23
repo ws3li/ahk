@@ -70,6 +70,9 @@ CleanRect(n) {
    Gui, %n%:Destroy
 }
 
+; ######################################
+; Draw all recorded points
+; ######################################
 DrawAllPoints()
 {
    global MonitorPoints
@@ -87,6 +90,23 @@ DrawAllPoints()
    {
       CleanRect(element)
    }
+}
+
+; ######################################
+; Get Mouse position
+; ######################################
+getCursorData()
+{
+   MouseGetPos, xpos, ypos
+   PixelGetColor, mcol, xpos, ypos
+   position := "X-l= " . xpos-5 . ", Y-t= " . ypos-5 . ", X-r= " . xpos+5 . ", Y-b= " . ypos+5 . ", hexColor= " . mcol . ", readableColor= " . BGRToRGB(mcol)
+
+   r1 := Rect(xpos-5, ypos-5, 10, 10, BGRToRGB(mcol))
+   cleanrect_fn := Func("CleanRect").bind(r1)
+   SetTimer, % cleanrect_fn, 1000
+
+   Clipboard := position
+   ; take readable color and use on https://www.rapidtables.com/web/color/RGB_Color.html
 }
 
 FlipBlueAndRed(c) ; takes RGB or BGR and swaps the R and B

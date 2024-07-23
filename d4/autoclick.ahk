@@ -1,40 +1,26 @@
 startAutoClick()
 {
-  ; darkshroudInit()
+  ; autopressr()
 }
 
-darkshroudInit()
+autopressr()
 {
-  global R_AUTO_CLICK_DS
   global inGameDetected
-  global inTown
-
-  if (!R_AUTO_CLICK_DS)
+  if (inGameDetected && WinActive("ahk_exe Diablo IV.exe"))
   {
-    return
+    autoClickR()
   }
 
-  if (inGameDetected && !inTown)
-  {
-    autoClickDarkShroud()
-  }
-
-  SetTimer, darkshroudInit, 2000
+  SetTimer, autopressr, -500
 }
 
-autoClickDarkShroud()
+autoClickR()
 {
-  ; Check if skill is available
-  dsavailableColor := 0x75BED7
-  dsavailableX := 1303
-  dsavailableY := 1312
-  dsavailable := colorExists(dsavailableX, dsavailableY, dsavailableX + squareSpacing, dsavailableY + squareSpacing, dsavailableColor, 3, "dsavailable")
+  ; check if skill is off
+  dsavailablecd := colorExists(1426, 1311, 1426 + 10, 1311 + 10, 0x0A0D0A, 0, "offcooldown")
 
-  ; check if skill is on CD
-  dsavailablecd := colorExists(dsavailableX, dsavailableY, dsavailableX + squareSpacing, dsavailableY + squareSpacing, 0x2F3A48, 0, "dsavailablecd")
-
-  if (dsavailable && !dsavailablecd)
+  if (!dsavailablecd)
   {
-    Send r
+    Send f
   }
 }

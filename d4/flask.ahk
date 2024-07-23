@@ -3,13 +3,15 @@
 ; ##################################################
 
 global toggle_hp
+global showMsg
 
 startAutoFlask()
 {
-   toggleHP(0)
+   showMsg := 0
+   toggleHP()
 }
 
-toggleHP(showMsg := 1)
+toggleHP()
 {
    toggle_hp := !toggle_hp
 
@@ -54,14 +56,30 @@ healthLoop()
    {
       if (!inGameDetected){
          SetTimer, healthLoop, -200
+
+         if (showMsg)
+         {
+            Splash("Game not detected")
+         }
+
          return
       }
 
-      hp := colorExists(hpX, hpY, hpX + squareSpacing, hpY + squareSpacing, hpColor, 20, "hpglobe")
+      ; hp := colorExists(hpX, hpY, hpX + squareSpacing, hpY + squareSpacing, hpColor, 20, "hpglobe")
+      ; if (showMsg)
+      ; {
+      ;    Splash("hp: " + hp)
+      ; }
 
-      nohp := 1
+      hp := 0
+
+      nohp := 0
       if (noHpDetection) {
          nohp := colorExists(noHPX, noHPY, noHPX + squareSpacing, noHPY + squareSpacing, noHPColor, 20, "nohpColor")
+         if (showMsg)
+         {
+            Splash("nohp: " + nohp)
+         }
       }
 
       invOp := isInvOpenedCheck()
@@ -70,8 +88,10 @@ healthLoop()
          If WinActive("ahk_exe Diablo IV.exe")
          {
             Send, 1
-            SetTimer, healthLoop, -2000
+            SetTimer, healthLoop, -500
          }
+
+         SetTimer, healthLoop, -200
       }
       else
       {
@@ -89,6 +109,5 @@ isInvOpenedCheck()
    squareSpacing := 10
 
    invX := colorExists(invXColorX, invXColorY, invXColorX + squareSpacing, invXColorY + squareSpacing, invXColor, 10, "invX")
-
    return invX
 }
