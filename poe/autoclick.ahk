@@ -1,26 +1,53 @@
 global gameExeName
 global battlefield
-global autoClickSendKey
 
 startAutoClick()
 {
-  clicking()
+  autoClickingR()
+  autoClickingT()
 }
 
-clicking()
+autoClickingR()
 {
-  if (battlefield && WinActive(gameExeName) && autoClickSendKey)
+  global autoClickR
+  global autoClickREnabled
+  global autoClickRTimer
+
+  if (battlefield && WinActive(gameExeName) && autoClickR && autoClickREnabled)
   {
     KeyWait, LButton, T0.5 ; if left button is held for 1 second T = 1 second
     If ErrorLevel = 1 ; held for 1 second
     {
-      send %autoClickSendKey%
+      send %autoClickR%
     }
 
-    SetTimer, clicking, -50
+    SetTimer, autoClickingR, -%autoClickRTimer%
   }
   else
   {
-    SetTimer, clicking, -50
+    SetTimer, autoClickingR, -50
   }
 }
+
+autoClickingT()
+{
+  global autoClickT
+  global autoClickTEnabled
+  global autoClickTTimer
+
+  if (battlefield && WinActive(gameExeName) && autoClickT && autoClickTEnabled)
+  {
+    KeyWait, LButton, T0.5 ; if left button is held for 1 second T = 1 second
+    If ErrorLevel = 1 ; held for 1 second
+    {
+      send %autoClickT%
+    }
+
+    SetTimer, autoClickingT, -%autoClickTTimer%
+  }
+  else
+  {
+    SetTimer, autoClickingT, -50
+  }
+}
+

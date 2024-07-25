@@ -8,7 +8,6 @@
    SetTitleMatchMode, 2
 
    #Include, globals.ahk
-   #include autoclick.ahk
 
    MonitorPoints := Object() ; Object to store all the monitor points
    Splash("Running POE AHK", 2000)
@@ -18,7 +17,7 @@
    flask := new Flask()
    flask.StartAutoFlask()
 
-   ; Perform Auto Clicks
+   #include autoclick.ahk
    startAutoClick()
 
    ; ##################################################
@@ -73,11 +72,9 @@
    ; TP Back to Hideout
    ; ######################################
    $!t::
-      Send i
-      MouseMove, 2500, 820
+      Send, !t
       Sleep, 100
-      MouseClick, right
-      MouseMove, 835, 545
+      MouseMove, (A_ScreenWidth / 2), (A_ScreenHeight / 2)
       Sleep, 100
       Click
    return
@@ -342,10 +339,29 @@
    return
 
    ; ######################################
+   ; Auto click feature
+   ; ######################################
+   global autoClickREnabled
+   !+r::
+      autoClickREnabled := !autoClickREnabled
+
+      state := autoClickREnabled ? "enabled" : "disabled"
+      Splash("auto click R: " . state)
+   return
+
+   global autoClickTEnabled
+   !+t::
+      autoClickTEnabled := !autoClickTEnabled
+
+      state := autoClickTEnabled ? "enabled" : "disabled"
+      Splash("auto click T: " . state)
+   return
+
+   ; ######################################
    ; Leap Blink
    ; ######################################
    global leapblink
-   !space::
+   !+space::
       leapblink := !leapblink
 
       state := leapblink ? "enabled" : "disabled"
