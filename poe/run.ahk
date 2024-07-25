@@ -360,16 +360,16 @@
    ; ######################################
    ; Leap Blink
    ; ######################################
-   global leapblink
+   global leapblinkEnabled
    !+space::
-      leapblink := !leapblink
+      leapblinkEnabled := !leapblinkEnabled
 
-      state := leapblink ? "enabled" : "disabled"
+      state := leapblinkEnabled ? "enabled" : "disabled"
       Splash("leap blink: " . state)
    return
 
    space::
-      if (leapblink && battlefield)
+      if (leapblinkEnabled && battlefield)
       {
          Send, t
          Sleep, 600

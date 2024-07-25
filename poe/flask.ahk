@@ -12,7 +12,6 @@ Class Flask
 {
    ToggleHP(showMsg := 1)
    {
-      global toggle_hp
       toggle_hp := !toggle_hp
       If toggle_hp
       {
@@ -34,7 +33,6 @@ Class Flask
 
    ToggleMana(showMsg := 1)
    {
-      global toggle_mana
       toggle_mana := !toggle_mana
       If toggle_mana
       {
@@ -56,7 +54,6 @@ Class Flask
 
    ToggleQS(showMsg := 1)
    {
-      global toggle_qs
       toggle_qs := !toggle_qs
       If toggle_qs
       {
@@ -78,8 +75,13 @@ Class Flask
 
    StartAutoFlask()
    {
+      toggle_hp := !toggle_hp
       this.ToggleHP(0)
+
+      toggle_mana := !toggle_mana
       this.ToggleMana(0)
+
+      toggle_qs := !toggle_qs
       this.ToggleQS(0)
    }
 }
