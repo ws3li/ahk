@@ -13,7 +13,6 @@
    Splash("Running POE AHK", 2000)
    inBattleField()
 
-   Profile := 1 ;default profile
    flask := new Flask()
    flask.StartAutoFlask()
 
@@ -360,10 +359,17 @@
    return
 
    ; ######################################
-   ; Mouse Click 5
+   ; Mouse Click 5 (front)
    ; ######################################
-   XButton2::
-      Send, i
+   ~XButton2::
+      Send, %mousefront%
+   return
+
+   ; ######################################
+   ; Mouse Click 4 (back)
+   ; ######################################
+   ~XButton1::
+      Send, %mouseback%
    return
 
    ; ######################################
@@ -417,103 +423,7 @@
       Reload
    return
 
-   ; ######################################
-   ; Reload PoeAPIKit
-   ; ######################################
-
-   ; !r::
-   ;    DetectHiddenWindows, On
-   ;    IfWinNotExist, PoEapikit.ahk
-   ;       Splash("Running poe kit", 2000)
-   ;    Run, "E:\poe\PoEapikit-1.10.1\PoEapikit.ahk"
-   ; return
-
-   ; ######################################
-   ; Gem Swap
-   ; ######################################
-   ; !a::
-   ;    Send, i
-   ;    Send, x
-   ;    Click, 2385 370 Right
-   ;    Click, 2147 470
-   ;    Click, 2385 370
-   ;    Send, x
-   ;    Send, i
-   ; return
-
-   ; ######################################
-   ; Setup Profiles
-   ; ######################################
-
-   $!1::
-      Profile := 1
-      Splash("Build: Minion lvl")
-   return
-
-   $!2::
-      Profile := 2
-      Splash("Splash, Build: Minion lvl + Smoke Mine")
-   return
-
-   $!3::
-      Profile := 3
-      Splash("Splash, Build: Aura Minion")
-   return
-
-; ##################
-; Minion Leveling
-; ##################
-#If Profile = 1
-
-   [::
-      Send, t
-   return
-
-   ]::
-      Send, t
-   return
-
-; ##################
-; Minion Leveling + Smoke Mine
-; ##################
-#If Profile = 2
-
-   [::
-      Send, 1234
-   return
-
-   ]::
-      Send, t
-   return
-
-   $Space::
-      Send t
-      Sleep, 400
-      Send d
-      Sleep, 250
-      Send {space}
-   return
-
-; ##################
-; Minion Aura Stacker
-; ##################
-#If Profile = 3
-
-   [::
-      Send, 1234
-   return
-
-   ]::
-      Send, qwert
-   return
-
-   !a::
-      aura := new Aura()
-      aura.Activate()
-   return
-
    #include helper.ahk
-   #include aura.ahk
    #include afk.ahk
    #include gem.ahk
    #include flask.ahk

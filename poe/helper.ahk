@@ -8,10 +8,9 @@
    SplashTextOff
 }
 
-
 colorExists(x1, y1, x2, y2, inputColor, variant, name := "")
 {
-   global MonitorPoints 
+   global MonitorPoints
    MonitorPoints[name] := { x1: x1, y1: y1 }
    PixelSearch, OutputVarX, OutputVarY, x1, y1, x2, y2, inputColor, variant, Fast
    return !ErrorLevel
@@ -29,7 +28,6 @@ Rect(x, y, w, h, c) {
 CleanRect(n) {
    Gui, %n%:Destroy
 }
-
 
 DrawAllPoints()
 {

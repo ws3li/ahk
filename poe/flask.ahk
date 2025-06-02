@@ -6,43 +6,38 @@
 global toggle_hp
 global toggle_mana
 global toggle_qs
+global toggle_qs_slot
 global gameExeName
 
 Class Flask
 {
-   ToggleFlask(flaskName, loopName, toggleVar, showMsg := 1)
+   ToggleFlask(flaskName, loopName, ByRef toggleVar, showMsg := 1)
    {
-      global %toggleVar%  ; Dynamically reference the toggle variable
-      %toggleVar% := !%toggleVar%  ; Toggle the state
-
-      if (%toggleVar%)  ; If flask is enabled
+      toggleVar := !toggleVar
+      if (toggleVar)
       {
          if (showMsg)
-         {
             Splash("Auto " . flaskName . " Enabled")
-         }
-         GoSub, %loopName%  ; Call the appropriate loop (healthLoop, manaloop, qsloop)
+         GoSub, %loopName%
       }
-      else  ; If flask is disabled
+      else
       {
          if (showMsg)
-         {
             Splash("Auto " . flaskName . " Disabled")
-         }
-         SetTimer, %loopName%, Off  ; Turn off the appropriate timer
+         SetTimer, %loopName%, Off
       }
    }
 
    StartAutoFlask()
    {
       toggle_hp := !toggle_hp
-      ToggleFlask("HP", "healthLoop", "toggle_hp", 0)
+      this.ToggleFlask("HP", "healthLoop", toggle_hp, 0)
 
       toggle_mana := !toggle_mana
-      ToggleFlask("Mana", "manaloop", "toggle_mana", 0)
+      this.ToggleFlask("Mana", "manaloop", toggle_mana, 0)
 
       toggle_qs := !toggle_qs
-      ToggleFlask("QS", "qsloop", "toggle_qs", 0)
+      this.ToggleFlask("QS", "qsloop", toggle_qs, 0)
    }
 }
 
@@ -128,19 +123,19 @@ qsloop:
             if (colorExists(614, 1397, 624, 1407, 0x51AE2D, 10, "qsflask4"))
             {
                Send, 4
-               SetTimer, qsloop, -6200
+               SetTimer, qsloop, -6000
                return
             }
             else if (colorExists(676, 1397, 686, 1407, 0x51AE2D, 10, "qsflask5"))
             {
                Send, 5
-               SetTimer, qsloop, -6200
+               SetTimer, qsloop, -6000
                return
             }
-            else if (colorExists(552, 1397, 562, 1407, 0x51AE2D, 10, "qsflask6"))
+            else if (colorExists(552, 1397, 562, 1407, 0x51AE2D, 10, "qsflask3"))
             {
                Send, 3
-               SetTimer, qsloop, -6200
+               SetTimer, qsloop, -6000
                return
             }
          }
