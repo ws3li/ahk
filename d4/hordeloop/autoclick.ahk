@@ -1,6 +1,6 @@
 startAutoClick()
 {
-  ; autopressr()
+  autopressr()
 }
 
 autopressr()

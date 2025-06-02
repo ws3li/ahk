@@ -3,8 +3,8 @@ global battlefield
 
 startAutoClick()
 {
-  autoClickingR()
-  autoClickingT()
+  ;autoClickingR()
+  ;autoClickingT()
 }
 
 autoClickingR()

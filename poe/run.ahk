@@ -71,13 +71,13 @@
    ; ######################################
    ; TP Back to Hideout
    ; ######################################
-   $!t::
-      Send, !t
-      Sleep, 100
-      MouseMove, (A_ScreenWidth / 2), (A_ScreenHeight / 2)
-      Sleep, 100
-      Click
-   return
+   ; $!t::
+   ;    Send, !t
+   ;    Sleep, 100
+   ;    MouseMove, (A_ScreenWidth / 2), (A_ScreenHeight / 2)
+   ;    Sleep, 100
+   ;    Click
+   ; return
 
    ; Travel to hideout / menagerie / logout login
    ; ######################################
@@ -138,6 +138,34 @@
    return
 
    ; ######################################
+   ; Map filters
+   ; ######################################
+
+   Numpad1::
+      mg := """" . "t of no|% of e|ll ma|stea|ot r|ss re|s poi|% mor" . """"
+      Send, ^f
+      Send, %mg%
+   return
+
+   Numpad2::
+      mg := """" . "rge on|ck sp|ind on|ss arm|th vul" . """"
+      Send, ^f
+      Send, %mg%
+   return
+
+   Numpad3::
+      mg := """" . "ever|tiles$|poss|f ph|ra c|rke|na a|rby|sou" . """"
+      Send, ^f
+      Send, %mg%
+   return
+
+   Numpad4::
+      mg := """" . "\d+% to al|eec|son$|ot g|efe|s rec|'v|mav|gen" . """"
+      Send, ^f
+      Send, %mg%
+   return
+
+   ; ######################################
    ; Helper Functions
    ; ######################################
 
@@ -187,9 +215,9 @@
    return
 
    ; Get All recorded points
-   ; ^!c::
-   ; DrawAllPoints()
-   ; return
+   !l::
+      DrawAllPoints()
+   return
 
    ; ######################################
    ; FLASK helper

@@ -10,79 +10,39 @@ global gameExeName
 
 Class Flask
 {
-   ToggleHP(showMsg := 1)
+   ToggleFlask(flaskName, loopName, toggleVar, showMsg := 1)
    {
-      toggle_hp := !toggle_hp
-      If toggle_hp
-      {
-         if (showMsg)
-         {
-            Splash("Auto HP Enabled")
-         }
-         GoSub, healthLoop
-      }
-      else
-      {
-         if (showMsg)
-         {
-            Splash("Auto HP Disabled")
-         }
-         SetTimer, healthLoop, Off
-      }
-   }
+      global %toggleVar%  ; Dynamically reference the toggle variable
+      %toggleVar% := !%toggleVar%  ; Toggle the state
 
-   ToggleMana(showMsg := 1)
-   {
-      toggle_mana := !toggle_mana
-      If toggle_mana
+      if (%toggleVar%)  ; If flask is enabled
       {
          if (showMsg)
          {
-            Splash("Auto Mana Enabled")
+            Splash("Auto " . flaskName . " Enabled")
          }
-         GoSub, manaloop
+         GoSub, %loopName%  ; Call the appropriate loop (healthLoop, manaloop, qsloop)
       }
-      else
+      else  ; If flask is disabled
       {
          if (showMsg)
          {
-            Splash("Auto Mana Disabled")
+            Splash("Auto " . flaskName . " Disabled")
          }
-         SetTimer, manaloop, Off
-      }
-   }
-
-   ToggleQS(showMsg := 1)
-   {
-      toggle_qs := !toggle_qs
-      If toggle_qs
-      {
-         if (showMsg)
-         {
-            Splash("Auto QS Enabled")
-         }
-         GoSub, qsloop
-      }
-      else
-      {
-         if (showMsg)
-         {
-            Splash("Auto QS Disabled")
-         }
-         SetTimer, qsloop, Off
+         SetTimer, %loopName%, Off  ; Turn off the appropriate timer
       }
    }
 
    StartAutoFlask()
    {
       toggle_hp := !toggle_hp
-      this.ToggleHP(0)
+      ToggleFlask("HP", "healthLoop", "toggle_hp", 0)
 
       toggle_mana := !toggle_mana
-      this.ToggleMana(0)
+      ToggleFlask("Mana", "manaloop", "toggle_mana", 0)
 
       toggle_qs := !toggle_qs
-      this.ToggleQS(0)
+      ToggleFlask("QS", "qsloop", "toggle_qs", 0)
    }
 }
 
@@ -174,6 +134,12 @@ qsloop:
             else if (colorExists(676, 1397, 686, 1407, 0x51AE2D, 10, "qsflask5"))
             {
                Send, 5
+               SetTimer, qsloop, -6200
+               return
+            }
+            else if (colorExists(552, 1397, 562, 1407, 0x51AE2D, 10, "qsflask6"))
+            {
+               Send, 3
                SetTimer, qsloop, -6200
                return
             }

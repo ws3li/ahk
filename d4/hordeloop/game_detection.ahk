@@ -74,6 +74,7 @@ isGameDetected()
   squareSpacing := 10
 
   detected := colorExists(Xpoint, Ypoint, Xpoint + squareSpacing, Ypoint + squareSpacing, detectionPointColor, 10, "gamedetected")
+
   static gm := 0
   lockedwinnum := 1
   if (!detected)

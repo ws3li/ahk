@@ -1,7 +1,7 @@
-﻿; detect whether to keep looping and running the script (portal)
-global detectionPointX := 1638 ; X-l : x coordinate (left)
-global detectionPointY := 1363 ; Y-t : y coordinate (top)
-global detectionPointColor := 0x7A959B ; hexColor : hex color to match\
+﻿; detect whether to keep looping and running the script
+global detectionPointX := 1018 ; X-l : x coordinate (left)
+global detectionPointY := 1247 ; Y-t : y coordinate (top)
+global detectionPointColor := 0x1E3741 ; hexColor : hex color to match
 
 ; detect low HP to toggle auto flask
 global potionKeybind := 1 ; keyboard set in game for potion
@@ -46,4 +46,4 @@ global box6X := 1510 ;
 global box6Y := 1306 ;
 
 ; perform auto clicks on abilities
-global R_AUTO_CLICK_DS := 0 ; auto click the darkshroud (not in town and if not already have one)
+global R_AUTO_CLICK_DS := 1 ; auto click the darkshroud (not in town and if not already have one)

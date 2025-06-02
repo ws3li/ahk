@@ -6,17 +6,17 @@ global instantFlask := 0 ; are you using instant flask?
 global gameExeName := "ahk_exe PathOfExile.exe"
 
 ; auto flask
-global toggle_hp := 1   ; slot 1 & 2
-global toggle_mana := 1 ; slot 3
+global toggle_hp := 0   ; slot 1 & 2
+global toggle_mana := 0 ; slot 3
 global toggle_qs := 1   ; slot 4 & 5
 
 ; auto-click (ctrl + shift + <key>)
 global autoClickR := "r"
-global autoClickREnabled := 0
+global autoClickREnabled := 1
 global autoClickRTimer := 50
 
 global autoClickT := "t"
-global autoClickTEnabled := 0
+global autoClickTEnabled := 1
 global autoClickTTimer := 7000
 
 ; enable leap + blink
